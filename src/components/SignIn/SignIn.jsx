@@ -5,7 +5,7 @@ import {
     onAuthStateChanged,
     signInWithEmailAndPassword
 } from 'firebase/auth';
-import { auth } from '../../firebase-config';
+import { auth, signInWithGoogle } from '../../firebase-config';
 import { useUserContext } from '../../contexts/userContext';
 
 const SignIn = () => {
@@ -34,7 +34,7 @@ const SignIn = () => {
                 registerPassword
             );
         } catch (error) {
-            console.log(error);
+            window.alert(error.message.split(':')[1].trim());
         }
     };
 
@@ -46,35 +46,70 @@ const SignIn = () => {
         }
     };
 
+    const inputStyle =
+        'py-2 px-4 my-1 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-200 focus:border-transparent';
+    const formTitleStyle =
+        'font-bold text-2xl text-gray-700 text-center my-2 uppercase';
+    const formButtonStyle =
+        'text-gray-100 bg-gray-700 rounded-md p-2 my-2 hover:bg-gray-600';
+    const googleButtonStyle =
+        'flex items-center bg-blue-500 h-full pl-1 pt-1 pr-4 pb-1 rounded text-gray-100 font-bold';
+
     return (
-        <div>
-            <div className="">
-                <h3>Register User</h3>
+        <div className="flex flex-col justify-center items-center">
+            <div className="flex flex-col">
+                <h3 className={formTitleStyle}>Register</h3>
                 <input
-                    placeholder="E-mail"
+                    className={inputStyle}
+                    placeholder={'E-mail'}
                     onBlur={(event) => setRegisterEmail(event.target.value)}
                 />
                 <input
-                    placeholder="Password"
+                    className={inputStyle}
+                    placeholder={'Password'}
                     onChange={(event) =>
                         setRegisterPassword(event.target.value)
                     }
+                    type={'password'}
                 />
 
-                <button onClick={register}>Create User</button>
+                <button className={formButtonStyle} onClick={register}>
+                    Register
+                </button>
             </div>
-            <div className="">
-                <h3>Login</h3>
+            <hr className="my-4 w-full" />
+            <div className="flex flex-col">
+                <h3 className={formTitleStyle}>Login</h3>
                 <input
-                    placeholder="E-mail"
+                    className={inputStyle}
+                    placeholder={'E-mail'}
                     onChange={(event) => setLoginEmail(event.target.value)}
                 />
                 <input
-                    placeholder="Password"
+                    className={inputStyle}
+                    placeholder={'Password'}
                     onChange={(event) => setLoginPassword(event.target.value)}
+                    type={'password'}
                 />
 
-                <button onClick={login}>Login</button>
+                <button className={formButtonStyle} onClick={login}>
+                    Login
+                </button>
+            </div>
+            <hr className="my-4 w-full" />
+            <div className="flex flex-col">
+                <h3 className={formTitleStyle}>Or</h3>
+                <button
+                    className={googleButtonStyle}
+                    onClick={signInWithGoogle}
+                >
+                    <img
+                        src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
+                        alt="Google G Logo"
+                        className="w-8 h-8 m-0 mr-2 bg-white rounded p-1"
+                    />
+                    Sign in with Google
+                </button>
             </div>
         </div>
     );
