@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect } from 'react';
+import AppsList from './components/AppsList/AppsList';
+import Navbar from './components/Navbar/Navbar';
+import SignIn from './components/SignIn/SignIn';
+import { useSelectedAppContext } from './contexts/selectedAppContext';
+import { useUserContext } from './contexts/userContext';
+import RockPaperScissors from './components/RockPaperScissors/RockPaperScissors';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const { currentUser } = useUserContext();
+    const { selectedApp } = useSelectedAppContext();
+
+    if (!currentUser) return <SignIn />;
+
+    return (
+        <div className="App">
+            <Navbar />
+            <div style={{ display: 'flex' }}>
+                <section>{currentUser && <AppsList />}</section>
+                <aside>
+                    {selectedApp.name === 'rock paper scissors' && (
+                        <RockPaperScissors />
+                    )}
+                    {selectedApp.name === 'Color Code Game' && (
+                        <div>Color Code Game</div>
+                    )}
+                    {!selectedApp.name && <div>selecione um app</div>}
+                </aside>
+            </div>
+        </div>
+    );
 }
 
 export default App;
