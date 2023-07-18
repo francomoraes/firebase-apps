@@ -51,7 +51,7 @@ const SignIn = () => {
     const formTitleStyle =
         'font-bold text-2xl text-gray-700 text-center my-2 uppercase';
     const formButtonStyle =
-        'text-gray-100 bg-gray-700 rounded-md p-2 my-2 hover:bg-gray-600';
+        'text-gray-100 bg-gray-700 rounded-md p-2 my-2 hover:bg-gray-600 focus:outline-none focus:ring-4 focus:ring-gray-400 active:scale-95';
     const googleButtonStyle =
         'flex items-center bg-blue-500 h-full pl-1 pt-1 pr-4 pb-1 rounded text-gray-100 font-bold';
 
@@ -83,7 +83,7 @@ const SignIn = () => {
                 <input
                     className={inputStyle}
                     placeholder={'E-mail'}
-                    onChange={(event) => setLoginEmail(event.target.value)}
+                    onBlur={(event) => setLoginEmail(event.target.value)}
                 />
                 <input
                     className={inputStyle}

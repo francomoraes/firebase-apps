@@ -8,7 +8,7 @@ const AppsList = () => {
     const [appsList, setAppsList] = useState([]);
     const appsCollectionRef = collection(db, 'apps-list');
 
-    const { setSelectedApp } = useSelectedAppContext();
+    const { selectedApp, setSelectedApp } = useSelectedAppContext();
 
     useEffect(() => {
         const getAppsList = async () => {
@@ -40,16 +40,16 @@ const AppsList = () => {
     };
 
     return (
-        <div
-            style={{
-                width: '400px',
-                backgroundColor: 'lightgray'
-            }}
-        >
-            <h1>Apps List</h1>
+        <div className="py-4 pt-8">
+            <h1 className="text-2xl mb-4 pl-4">Apps List</h1>
             <ul>
                 {appsList?.map((app) => (
-                    <li key={app.id}>
+                    <li
+                        key={app.id}
+                        className={`py-2 hover:bg-gray-300 w-full px-4 cursor-pointer ${
+                            app.selected && 'bg-gray-400'
+                        }`}
+                    >
                         <button onClick={() => selectApp(app.id)}>
                             {app.name}
                         </button>

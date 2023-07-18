@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './styles.css';
 import { useRockPaperScissorsContext } from '../../contexts/rockPaperScissorsContext';
 
 const RockPaperScissors = () => {
@@ -56,31 +55,53 @@ const RockPaperScissors = () => {
         setDraw(0);
     };
 
+    const spanStyle =
+        'm-2 p-1 border-2 border-gray-500 rounded-lg flex justify-center w-1/3';
+    const buttonStyle =
+        'text-2xl my-2 p-4 rounded-lg bg-gray-300 hover:bg-gray-400 active:scale-95 transition duration-150 w-full sm:w-40 sm:mx-2';
+
     return (
-        <div className="rock-paper-scissors-container">
+        <div className="flex flex-col items-center justify-center m-2 w-2/3 content-center bg-gray-100 h-full">
             <h1>Rock, Paper, Scissors</h1>
-            <div className="score-container">
-                <span>Player Score: {playerScore}</span>
-                <span>Draw: {draw}</span>
-                <span>Computer Score: {computerScore}</span>
+            <div className="flex justify-between m-2 w-full">
+                <span className={spanStyle}>Player Score: {playerScore}</span>
+                <span className={spanStyle}>Draw: {draw}</span>
+                <span className={spanStyle}>
+                    Computer Score: {computerScore}
+                </span>
             </div>
-            <div className="score-container">
-                <p>current play.</p>
-                <span>Player Choice: {playerChoice}</span>
-                <span>Computer Choice: {computerChoice}</span>
+            <div className="flex justify-between m-2 items-center w-full">
+                <span className={`${spanStyle} w-1/3`}>
+                    Player Choice: {playerChoice}
+                </span>
+                <span className={`${spanStyle} border-none`}>X</span>
+                <span className={`${spanStyle} w-1/3`}>
+                    Computer Choice: {computerChoice}
+                </span>
             </div>
-            <div className="">
-                <button onClick={(e) => playGame(e.target.innerHTML)}>
+            <div className="w-full flex justify-center flex-col sm:flex-row">
+                <button
+                    className={buttonStyle}
+                    onClick={(e) => playGame(e.target.innerHTML)}
+                >
                     rock
                 </button>
-                <button onClick={(e) => playGame(e.target.innerHTML)}>
+                <button
+                    className={buttonStyle}
+                    onClick={(e) => playGame(e.target.innerHTML)}
+                >
                     paper
                 </button>
-                <button onClick={(e) => playGame(e.target.innerHTML)}>
+                <button
+                    className={buttonStyle}
+                    onClick={(e) => playGame(e.target.innerHTML)}
+                >
                     scissors
                 </button>
             </div>
-            <button onClick={resetScores}>Reset Scores</button>
+            <button className={`${buttonStyle} sm:w-96`} onClick={resetScores}>
+                Reset Scores
+            </button>
         </div>
     );
 };
