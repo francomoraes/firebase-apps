@@ -6,11 +6,14 @@ import { useUserContext } from './contexts/userContext';
 import RockPaperScissors from './components/RockPaperScissors/RockPaperScissors';
 import { RockPaperScissorsProvider } from './contexts/rockPaperScissorsContext';
 import { useDrawerContext } from './contexts/drawerContext';
+import { FaArrowUp } from 'react-icons/fa';
 
 function App() {
     const { currentUser } = useUserContext();
     const { selectedApp } = useSelectedAppContext();
     const { drawerOpened } = useDrawerContext();
+
+    console.log('selectedApp', selectedApp);
 
     if (!currentUser)
         return (
@@ -27,7 +30,7 @@ function App() {
                     drawerOpened && 'left-0'
                 } w-60 h-screen bg-gray-200 overflow-y-scroll no-scrollbar transition-all`}
             >
-                <AppsList key={selectedApp.name} />
+                <AppsList key={selectedApp?.name} />
                 {drawerOpened && (
                     <div className="w-[calc(100%-240px)] h-full bg-gray-500" />
                 )}
@@ -44,15 +47,22 @@ function App() {
                     'flex justify-center w-full overflow-hidden bg-gray-400 h-full'
                 }
             >
-                {selectedApp.name === 'rock paper scissors' && (
+                {selectedApp?.name === 'rock paper scissors' && (
                     <RockPaperScissorsProvider>
                         <RockPaperScissors />
                     </RockPaperScissorsProvider>
                 )}
-                {selectedApp.name === 'Color Code Game' && (
-                    <div>Color Code Game</div>
+                {selectedApp?.name === 'Color Code Game' && (
+                    <div className="flex justify-center w-full h-10 mt-16 text-black">
+                        Color Code Game
+                    </div>
                 )}
-                {!selectedApp.name && <div>selecione um app</div>}
+                {!selectedApp.name && (
+                    <div className="flex justify-start items-center py-10 w-full h-10 mt-16 text-black animate-bounce">
+                        <FaArrowUp className="mx-6" />
+                        selecione um app
+                    </div>
+                )}
             </div>
         </div>
     );
