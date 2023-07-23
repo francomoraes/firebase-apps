@@ -7,13 +7,12 @@ import RockPaperScissors from './components/RockPaperScissors/RockPaperScissors'
 import { RockPaperScissorsProvider } from './contexts/rockPaperScissorsContext';
 import { useDrawerContext } from './contexts/drawerContext';
 import { FaArrowUp } from 'react-icons/fa';
+import HangmanGame from './components/Hangman/Hangman';
 
 function App() {
     const { currentUser } = useUserContext();
     const { selectedApp } = useSelectedAppContext();
     const { drawerOpened } = useDrawerContext();
-
-    console.log('selectedApp', selectedApp);
 
     if (!currentUser)
         return (
@@ -55,6 +54,11 @@ function App() {
                 {selectedApp?.name === 'Color Code Game' && (
                     <div className="flex justify-center w-full h-10 mt-16 text-black">
                         Color Code Game
+                    </div>
+                )}
+                {selectedApp?.name === 'Hangman Game' && (
+                    <div className="flex justify-center w-full h-10 mt-16 text-black">
+                        <HangmanGame />
                     </div>
                 )}
                 {!selectedApp.name && (
