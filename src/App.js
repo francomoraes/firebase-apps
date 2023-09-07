@@ -8,11 +8,12 @@ import { RockPaperScissorsProvider } from './contexts/rockPaperScissorsContext';
 import { useDrawerContext } from './contexts/drawerContext';
 import { FaArrowUp } from 'react-icons/fa';
 import HangmanGame from './components/Hangman/Hangman';
+import { HangmanProvider } from './contexts/hangmanContext';
 
 function App() {
     const { currentUser } = useUserContext();
     const { selectedApp } = useSelectedAppContext();
-    const { drawerOpened } = useDrawerContext();
+    const { drawerOpened, setDrawerOpened } = useDrawerContext();
 
     if (!currentUser)
         return (
@@ -36,9 +37,10 @@ function App() {
             </section>
             {drawerOpened && (
                 <div
-                    className={`absolute ml-60 w-[calc(100%-240px)] h-full bg-gray-500 bg-opacity-30 ${
+                    className={`absolute ml-60 w-[calc(100%-240px)] h-full bg-gray-500 bg-opacity-60 ${
                         !drawerOpened && 'bg-opacity-0'
                     } transition-all ease-in-out`}
+                    onClick={() => setDrawerOpened(false)}
                 />
             )}
             <div
@@ -58,7 +60,9 @@ function App() {
                 )}
                 {selectedApp?.name === 'Hangman Game' && (
                     <div className="flex justify-center w-full h-10 mt-16 text-black">
-                        <HangmanGame />
+                        <HangmanProvider>
+                            <HangmanGame />
+                        </HangmanProvider>
                     </div>
                 )}
                 {!selectedApp.name && (

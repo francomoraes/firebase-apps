@@ -1,6 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { useHangmanContext } from '../../contexts/hangmanContext';
 
 const HangmanGame = () => {
+    const { wins, updateWins, losses, updateLosses } = useHangmanContext();
+
+    console.log('wins: ', wins);
+    console.log('losses: ', losses);
+    console.log('totalGames: ', wins + losses);
+
     const words = ['apple', 'banana', 'cherry', 'grape', 'kiwi', 'mango']; // Add more words here
     const maxAttempts = 6; // Number of maximum attempts allowed
 
@@ -17,11 +24,15 @@ const HangmanGame = () => {
 
     useEffect(() => {
         // Check if the game is won
+        if (wordToGuess === '') return;
+
         const isGameWon = wordToGuess
             .split('')
             .every((letter) => guessedLetters.has(letter));
         if (isGameWon) {
+            console.log('been here');
             setGameStatus('won');
+            updateWins();
         }
     }, [wordToGuess, guessedLetters]);
 
@@ -29,6 +40,7 @@ const HangmanGame = () => {
         // Check if the game is lost
         if (attemptsLeft === 0) {
             setGameStatus('lost');
+            updateLosses();
         }
     }, [attemptsLeft]);
 

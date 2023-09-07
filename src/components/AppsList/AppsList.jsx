@@ -8,7 +8,7 @@ const AppsList = () => {
     const [appsList, setAppsList] = useState([]);
     const appsCollectionRef = collection(db, 'apps-list');
 
-    const { selectedApp, setSelectedApp } = useSelectedAppContext();
+    const { setSelectedApp } = useSelectedAppContext();
 
     useEffect(() => {
         const getAppsList = async () => {
@@ -19,7 +19,7 @@ const AppsList = () => {
         };
 
         getAppsList();
-    }, []);
+    }, [appsCollectionRef]);
 
     const selectApp = async (id) => {
         const data = await getDocs(appsCollectionRef);
